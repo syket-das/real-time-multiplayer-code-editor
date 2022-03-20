@@ -9,8 +9,9 @@ import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/matchtags';
+import ACTIONS from '../Actions';
 
-const Editor = () => {
+const Editor = ({ socketRef, roomId }) => {
   let editorRef = useRef(null);
 
   useEffect(() => {
@@ -45,10 +46,35 @@ const Editor = () => {
         }
       );
 
-      
+      editorRef.current.on('change', (instance, changes) => {
+        const { origin } = changes;
+        const code = instance.getValue();
+
+        if (origin !== 'setValue') {
+          socketRef.current.emit(ACTIONS.CODE_CHANGE, {
+            roomId,
+            code,
+          });
+        }
+      });
     }
     init();
   }, []);
+
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
+        if (code !== null) {
+          editorRef.current.setValue(code);
+        }
+      });
+    }
+
+    return () => {
+      socketRef.current.off(ACTIONS.CODE_CHANGE);
+    };
+  }, [socketRef.current]);
+
   return <textarea name="" id="realtimeEditor"></textarea>;
 };
 
