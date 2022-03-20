@@ -11,7 +11,7 @@ import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/matchtags';
 import ACTIONS from '../Actions';
 
-const Editor = ({ socketRef, roomId }) => {
+const Editor = ({ socketRef, roomId, onCodeChange }) => {
   let editorRef = useRef(null);
 
   useEffect(() => {
@@ -49,6 +49,8 @@ const Editor = ({ socketRef, roomId }) => {
       editorRef.current.on('change', (instance, changes) => {
         const { origin } = changes;
         const code = instance.getValue();
+
+        onCodeChange(code);
 
         if (origin !== 'setValue') {
           socketRef.current.emit(ACTIONS.CODE_CHANGE, {
