@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  height: 100vh;
 }
 
 .homePageLogo {
@@ -49,13 +48,15 @@
   transition: 0.3s ease-in-out;
 }
 
-.joinBtn, .leaveBtn {
+.joinBtn,
+.leaveBtn {
   background: #4aed88;
   width: 100px;
   margin-left: auto;
 }
 
-.joinBtn:hover, .leaveBtn:hover {
+.joinBtn:hover,
+.leaveBtn:hover {
   background: #2b824c;
 }
 
@@ -101,10 +102,12 @@ footer a {
   color: #fff;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .asideInner {
   flex: 1;
+  overflow-y: auto;
 }
 
 .clientsList {
@@ -134,9 +137,16 @@ footer a {
   height: 60px;
 }
 
-.leaveBtn{
-    width: 100%;
-    margin-top: 20px;
+.leaveBtn {
+  width: 100%;
+  margin-top: 20px;
 }
 
+.CodeMirror {
+  height: 100% !important;
+  overflow-inline: scroll;
+}
 
+.editorWrap {
+  overflow: none;
+}
