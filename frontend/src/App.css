@@ -1,13 +1,10 @@
+
 .homePageWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-}
-
-.homePageLogo {
-  height: 80px;
-  margin-bottom: 30px;
+  height: 100vh;
 }
 
 .formWrapper {
@@ -18,6 +15,15 @@
   max-width: 90%;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+}
+
+footer a {
+  color: #4aee88;
+}
+
 .inputGroup {
   display: flex;
   flex-direction: column;
@@ -26,6 +32,11 @@
 .mainLabel {
   margin-bottom: 20px;
   margin-top: 0;
+}
+
+.homePageLogo {
+  height: 80px;
+  margin-bottom: 30px;
 }
 
 .inputBox {
@@ -44,8 +55,9 @@
   padding: 10px;
   border-radius: 5px;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .joinBtn,
@@ -69,31 +81,18 @@
   color: #4aed88;
   text-decoration: none;
   border-bottom: 1px solid #4aed88;
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .createNewBtn:hover,
 footer a:hover {
-  color: #2b824c;
-  border-color: #2b824c;
+  color: #368654;
+  border-color: #368654;
 }
-
-footer {
-  position: fixed;
-  bottom: 0;
-}
-
-footer a {
-  color: #4aee88;
-  transition: 0.3s ease-in-out;
-}
-
-/* Editor Page */
 
 .mainWrap {
   display: grid;
   grid-template-columns: 230px 1fr;
-  height: 100vh;
 }
 
 .aside {
@@ -102,12 +101,9 @@ footer a {
   color: #fff;
   display: flex;
   flex-direction: column;
-  position: relative;
 }
-
 .asideInner {
   flex: 1;
-  overflow-y: auto;
 }
 
 .clientsList {
@@ -123,7 +119,6 @@ footer a {
   flex-direction: column;
   font-weight: bold;
 }
-
 .userName {
   margin-top: 10px;
 }
@@ -141,12 +136,7 @@ footer a {
   width: 100%;
   margin-top: 20px;
 }
-
 .CodeMirror {
-  height: 100% !important;
-  overflow-inline: scroll;
-}
-
-.editorWrap {
-  overflow: none;
+  min-height: calc(100vh - 20px);
+  padding-top: 20px;
 }

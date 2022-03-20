@@ -1,85 +1,88 @@
 import React, { useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
-
-import { toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const [roomId, setRoomId] = useState('');
-  const [userName, setUserName] = useState('');
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    const [roomId, setRoomId] = useState('');
+    const [username, setUsername] = useState('');
+    const createNewRoom = (e) => {
+        e.preventDefault();
+        const id = uuidV4();
+        setRoomId(id);
+        toast.success('Created a new room');
+    };
 
-  const createNewRoom = (e) => {
-    e.preventDefault();
-    const id = uuidV4();
-    setRoomId(id);
-    toast.success('Room created!');
-  };
+    const joinRoom = () => {
+        if (!roomId || !username) {
+            toast.error('ROOM ID & username is required');
+            return;
+        }
 
-  const joinRoom = () => {
-    if (!roomId || !userName) {
-      toast.error('Please enter room id and user name !');
-      return;
-    }
+        // Redirect
+        navigate(`/editor/${roomId}`, {
+            state: {
+                username,
+            },
+        });
+    };
 
-    navigate(`/editor/${roomId}`, {
-      state: {
-        userName,
-      },
-    });
-  };
-
-  const handleInputEnter = (e) => {
-    if (e.key === 'Enter') {
-      joinRoom();
-    }
-  };
-
-  return (
-    <div className="homePageWrapper">
-      <div className="formWrapper">
-        <img className="homePageLogo" src="logo192.png" alt="LOGO" />
-        <h4 className="mainLabel">Paste Invitation Room Id</h4>
-        <div className="inputGroup">
-          <input
-            type="text"
-            className="inputBox"
-            value={roomId}
-            onChange={(e) => setRoomId(e.target.value)}
-            placeholder="Room Id"
-            onKeyUp={handleInputEnter}
-          />
-          <input
-            type="text"
-            className="inputBox"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            placeholder="User Name"
-            onKeyUp={handleInputEnter}
-          />
-          <button className="btn joinBtn" onClick={joinRoom}>
-            Join
-          </button>
-          <span className="createInfo">
-            If you don't have a room id, &nbsp;{' '}
-            <a onClick={createNewRoom} className="createNewBtn" href="#/">
-              create one here
-            </a>
-          </span>
+    const handleInputEnter = (e) => {
+        if (e.code === 'Enter') {
+            joinRoom();
+        }
+    };
+    return (
+        <div className="homePageWrapper">
+            <div className="formWrapper">
+                <img
+                    className="homePageLogo"
+                    src="/logo192.png"
+                    alt="code-sync-logo"
+                />
+                <h4 className="mainLabel">Paste invitation ROOM ID</h4>
+                <div className="inputGroup">
+                    <input
+                        type="text"
+                        className="inputBox"
+                        placeholder="ROOM ID"
+                        onChange={(e) => setRoomId(e.target.value)}
+                        value={roomId}
+                        onKeyUp={handleInputEnter}
+                    />
+                    <input
+                        type="text"
+                        className="inputBox"
+                        placeholder="USERNAME"
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
+                        onKeyUp={handleInputEnter}
+                    />
+                    <button className="btn joinBtn" onClick={joinRoom}>
+                        Join
+                    </button>
+                    <span className="createInfo">
+                        If you don't have an invite then create &nbsp;
+                        <a
+                            onClick={createNewRoom}
+                            href="#/"
+                            className="createNewBtn"
+                        >
+                            new room
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <footer>
+                <h4>
+                    Built with 💛 &nbsp; by &nbsp;
+                    <a href="#/">Syket Das</a>
+                </h4>
+            </footer>
         </div>
-      </div>
-
-      <footer>
-        <h4>
-          All rights reserved. &copy; 2022 | Developed By{' '}
-          <a target="_blank" rel="noreferrer" href="https://syket-das.me">
-            Syket Das
-          </a>
-        </h4>
-      </footer>
-    </div>
-  );
+    );
 };
 
 export default Home;

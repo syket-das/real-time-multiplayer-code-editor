@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
@@ -11,34 +11,41 @@ import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/matchtags';
 
 const Editor = () => {
+  let editorRef = useRef(null);
+
   useEffect(() => {
     async function init() {
-      CodeMirror.fromTextArea(document.getElementById('realtimeEditor'), {
-        lineNumbers: true,
-        mode: {
-          name: 'javascript',
-          json: true,
-        },
-
-        theme: 'dracula',
-
-        extraKeys: {
-          'Ctrl-Space': 'autocomplete',
-          'Ctrl-Q': function (cm) {
-            cm.foldCode(cm.getCursor());
+      editorRef.current = CodeMirror.fromTextArea(
+        document.getElementById('realtimeEditor'),
+        {
+          lineNumbers: true,
+          mode: {
+            name: 'javascript',
+            json: true,
           },
-        },
-        foldGutter: true,
-        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        autoCloseTags: true,
-        autoCloseBrackets: true,
-        matchTags: { bothTags: true },
-        lineSeparator: '\n',
-        tabSize: 2,
-        indentUnit: 2,
-        indentWithTabs: true,
-        smartIndent: true,
-      });
+
+          theme: 'dracula',
+
+          extraKeys: {
+            'Ctrl-Space': 'autocomplete',
+            'Ctrl-Q': function (cm) {
+              cm.foldCode(cm.getCursor());
+            },
+          },
+          foldGutter: true,
+          gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+          autoCloseTags: true,
+          autoCloseBrackets: true,
+          matchTags: { bothTags: true },
+          lineSeparator: '\n',
+          tabSize: 2,
+          indentUnit: 2,
+          indentWithTabs: true,
+          smartIndent: true,
+        }
+      );
+
+      
     }
     init();
   }, []);
