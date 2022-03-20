@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div className="homePageWrapper">
       <div className="formWrapper">
-        <img src="logo192.png" alt="LOGO" />
+        <img className='homePageLogo' src="logo192.png" alt="LOGO" />
         <h4 className="mainLabel">Paste Invitation Room Id</h4>
         <div className="inputGroup">
           <input type="text" className="inputBox" placeholder="Room Id" />
